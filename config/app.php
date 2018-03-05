@@ -153,6 +153,12 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
 
+        /* 
+         * Unisharp/CKEditor providers
+         */
+        Unisharp\Ckeditor\ServiceProvider::class,
+
+
         /*
          * Application Service Providers...
          */
