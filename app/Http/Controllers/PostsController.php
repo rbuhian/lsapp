@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Post;
+use Log;
 
 class PostsController extends Controller
 {
@@ -40,6 +41,12 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info($request);
+        Log::info('Title');
+        Log::info($request->input('title'));
+        Log::info('Body');
+        Log::info($request->input('body'));
+
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required'
