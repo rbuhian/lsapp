@@ -27,3 +27,6 @@ Route::resource('posts', 'PostsController');
 // Route::get('/', function () {
 //     return view('pages.about');
 // });
+Route::auth();
+
+Route::get('/dashboard', 'DashBoardController@index');
