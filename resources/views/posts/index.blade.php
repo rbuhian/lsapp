@@ -17,4 +17,6 @@
             <p>No posts found.</p>
         @endif
     </div>
+
+    
 @endsection

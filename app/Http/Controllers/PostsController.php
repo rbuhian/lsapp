@@ -19,7 +19,7 @@ class PostsController extends Controller
     {
         // $posts = Post::orderBy('title', 'desc')->get();
         // $posts = Post::orderBy('title', 'desc')->take(1)->get();
-        $posts = Post::orderBy('created_at', 'desc')->paginate(2);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -42,10 +42,6 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         Log::info($request);
-        Log::info('Title');
-        Log::info($request->input('title'));
-        Log::info('Body');
-        Log::info($request->input('body'));
 
         $this->validate($request, [
             'title' => 'required',
@@ -81,7 +77,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit')->with('post', $post);
     }
 
     /**
@@ -93,7 +90,18 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        //Create Post
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+
+        return redirect('/posts')->with('success', 'Post updated.');
     }
 
     /**
@@ -104,6 +112,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        return redirect('/posts')->with('success', 'Post Removed.');
     }
 }
